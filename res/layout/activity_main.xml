@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/play_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="450dp" >
+
+    
+	<RelativeLayout
+	    android:id="@+id/screenRelativeLayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="450dp"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginTop="0dp"
+	    android:background="#000" >
+
+	    <ImageView
+	        android:id="@+id/ImageView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="false"
+	        android:layout_centerInParent="true"
+	        android:src="@drawable/akb_radio" >
+
+    	</ImageView>
+    	<ProgressBar
+        	android:id="@+id/progressBar"
+        	android:layout_centerInParent="true"
+	      	android:layout_width="wrap_content"
+	      	android:layout_height="wrap_content"/>
+	</RelativeLayout>
+	
+    <RelativeLayout
+        android:id="@+id/controlRelativeLayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="80dp"
+	    android:layout_alignParentTop="true"
+	    android:background="#88000000" >
+        
+        <TextView
+            android:id="@+id/elapsedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="15dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:text="@string/default_time"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+        
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:max="100"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/seekbar_states"
+            android:thumb="@drawable/seek_thumb" />
+        
+        <TextView
+            android:id="@+id/durationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginRight="15dp"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="1"
+            android:text="@string/default_time"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    
+	
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999"
+         >
+
+       	<EditText
+       	    android:id="@+id/play_edit_text"
+       	    android:layout_width="270dp"
+       	    android:layout_height="wrap_content"
+       	    android:layout_marginTop="2dp"
+       	    android:ems="10"
+       	    android:enabled="true"
+       	    android:hint=""
+       	    android:maxLines="3" >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/play_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:onClick="postClick"
+            android:text="@string/button_send" />
+
+    </RelativeLayout>
+        	           
+</RelativeLayout>
