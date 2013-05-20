@@ -2,7 +2,7 @@
     "posts": [
         {
             "userName":"hiro",
-            "thumb":2130837511,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━!!!",
             "y":167,
@@ -12,7 +12,7 @@
         
         {
             "userName":"ohanika",
-            "thumb":2130837512,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"チャイムきたーー",
             "y":80,
@@ -22,7 +22,7 @@
 
                 {
             "userName":"ohanika",
-            "thumb":2130837513,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"はじまるぅぅぅう",
             "y":267,
@@ -32,7 +32,7 @@
 
                 {
             "userName":"ohanika",
-            "thumb":2130837514,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"新番組きたーーー",
             "y":10,
@@ -42,7 +42,7 @@
 
                 {
             "userName":"ohanika",
-            "thumb":2130837515,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"やびゃあ",
             "y":67,
@@ -52,7 +52,7 @@
 
                 {
             "userName":"ohanika",
-            "thumb":2130837516,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"m9( ﾟ∀ﾟ)9m",
             "y":120,
@@ -62,241 +62,11 @@
 
                 {
             "userName":"ohanika",
-            "thumb":2130837517,
+            "thumb":"/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMraHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgTWFjaW50b3NoIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2Njk3Qjc3OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2Njk3Qjc4OTlGRjExRTJCMDZFOTMyMzk1QTVDQzIwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY2OTdCNzU5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY2OTdCNzY5OUZGMTFFMkIwNkU5MzIzOTVBNUNDMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAlACUDAREAAhEBAxEB/8QAhQABAAIDAQAAAAAAAAAAAAAABwUGAgMECAEBAAMBAQAAAAAAAAAAAAAABAECAwAFEAABAgQEBAUDAwUAAAAAAAABAgMREgQFACExBiITFQdBUXEyFGGBocFiI0JSJBYXEQACAgIABAYDAAAAAAAAAAAAARECIQMxYSIEQYESMhMUkaGx/9oADAMBAAIRAxEAPwB1qKpKUrccUEtoBUpZMAANSTjxW8ns1qGt8757Wt9WaelbXcCFyKdaUAkQPETkT6eeLLTZ5JdlwLpYdw2i/wBAK22P85k5KBBSpCvJSTmMYWTRYLu89GGr3Q1ZiAtgRI/Y4f0OLasMi3Aq6bwg7NWnn8abulrUx5SmlLmhrLBOFRmeRhOIGLuZc26PZlyUXS2440W2gAVFSj/TAeficHq5aE8ECfayxW+73J1msb5rsqnJ0wmBhDKOUQTphG+0YRPa0TmRRtu2X9t3eiuVNVgKdUGLjbIiKmVEgPSzGEvCco4NZ4LXUvBGd9ICjttQFcIW42o/SAV+mK6csxbwUVFMf9xdpZj8eVt8LgPZ8RbU0PXCvV0T5fsxjqEzuMybta3qFLhbUAVJIOsBofXB9bhyKfALO1Na2zuByqSwsChSE1FOVkB1RVqCIEaeeE78JEdv1zGGOKLPcNzMKqFuIp2ErmYQ0ONbRzDbqiPcCPck5+IwRsvsv8ago3edLg20kLSUqYqExSQQQFBSfHE9r7zC/tCQb4X1U1HJTP8ADFCeLOMDx6a4d9bojnIX5uoYqLc9JuNbtVSMuMW9EwFbUyoQojwSkFSvvgttbrhnbu/pTBmqy7et9NVVyVo6hVyh/leyVOkv2zJxS0vHger2m/TZN1af9/Bp2bvqrt92NspUpeoSFuFBMFBSYRIXnrjrUhAe/wC6rrcNSdPca6Uu92mbM2PhKTMXH1xK0PARQFy5Fs/UemLa7ehyGvvqtfqTwCP/ADjdIvgtfwl9QUyaoJ4eXIl3llzmxl5cFRj9oYf9ivpmcBflr7pPQO3OmdFoekydM5KeRDSWGc/7v7o4Bsmc8TzN8zkidzA9Id+MWA1FWbYbLkIZ+4jKH4xFJO0zPjBUbAGE3RkWtZce+P8AyKqEht6WAm4UKcTrpnpjS3MR3Uc/M7rj8mQZwrZxOURK4Zwnh+MVtEmFZjkTJFX0wRP+XyzJEfy8uAmlzjCeBV4RlH1xljyOP//Z",
             "type":1,
             "data":"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━!!!",
             "y":50,
             "postedAt":12,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837518,
-            "type":1,
-            "data":"はじまた",
-            "y":67,
-            "postedAt":15,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837519,
-            "type":1,
-            "data":"眠くてしにそう",
-            "y":150,
-            "postedAt":16,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837520,
-            "type":1,
-            "data":"大島さん",
-            "y":300,
-            "postedAt":19,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837521,
-            "type":1,
-            "data":"やっと始まったー！",
-            "y":170,
-            "postedAt":20,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837512,
-            "type":1,
-            "data":"88888888888",
-            "y":80,
-            "postedAt":20,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837513,
-            "type":1,
-            "data":"イントロきたーーー",
-            "y":320,
-            "postedAt":22,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837514,
-            "type":1,
-            "data":"いやー総選挙が楽しみだ",
-            "y":180,
-            "postedAt":24,
-            "createdAt":1366166059
-        },
-
-                {
-            "userName":"ohanika",
-            "thumb":2130837515,
-            "type":1,
-            "data":"優子先輩が久々に出ると聞いて",
-            "y":90,
-            "postedAt":26,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837516,
-            "type":1,
-            "data":"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━!!!",
-            "y":130,
-            "postedAt":28,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837517,
-            "type":1,
-            "data":"ああああああああああ",
-            "y":220,
-            "postedAt":29,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837518,
-            "type":1,
-            "data":" (-。- ) ﾌｩｰ",
-            "y":70,
-            "postedAt":31,
-            "createdAt":1366166059
-        },
-
-{
-            "userName":"ohanika",
-            "thumb":2130837517,
-            "type":1,
-            "data":"0048はマジでいいぞ",
-            "y":140,
-            "postedAt":32,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837519,
-            "type":1,
-            "data":"いただきまゆゆ〜 \\(^o^)/",
-            "y":210,
-            "postedAt":35,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837520,
-            "type":1,
-            "data":"もうすぐ、始まった",
-            "y":60,
-            "postedAt":37,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837521,
-            "type":1,
-            "data":"にゃんにゃん",
-            "y":100,
-            "postedAt":40,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837512,
-            "type":1,
-            "data":"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━!!!",
-            "y":110,
-            "postedAt":40,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837513,
-            "type":1,
-            "data":"意味わからない",
-            "y":130,
-            "postedAt":41,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837514,
-            "type":1,
-            "data":"おおおｗｗｗｗ",
-            "y":180,
-            "postedAt":43,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837515,
-            "type":1,
-            "data":"ゆ、ゆ、ゆきりん(*´Д｀)",
-            "y":230,
-            "postedAt":44,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837516,
-            "type":1,
-            "data":"パンツwww ",
-            "y":210,
-            "postedAt":45,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837511,
-            "type":1,
-            "data":"なんか面白そうな番組だな",
-            "y":180,
-            "postedAt":46,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837518,
-            "type":1,
-            "data":"どういう意味だよ",
-            "y":30,
-            "postedAt":47,
-            "createdAt":1366166059
-        },
-
-        {
-            "userName":"ohanika",
-            "thumb":2130837519,
-            "type":1,
-            "data":"まゆゆぅぅぅぅぅぅぅぅぅぅぅぅう ",
-            "y":40,
-            "postedAt":48,
             "createdAt":1366166059
         }
 

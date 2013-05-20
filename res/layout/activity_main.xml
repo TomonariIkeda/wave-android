@@ -6,37 +6,12 @@
     android:layout_height="match_parent"
     android:minHeight="450dp" >
 
-    
-	<RelativeLayout
-	    android:id="@+id/screenRelativeLayout"
-	    android:layout_width="match_parent"
-	    android:layout_height="450dp"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginTop="0dp"
-	    android:background="#000" >
-
-	    <ImageView
-	        android:id="@+id/ImageView"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="false"
-	        android:layout_centerInParent="true"
-	        android:src="@drawable/akb_radio" >
-
-    	</ImageView>
-    	<ProgressBar
-        	android:id="@+id/progressBar"
-        	android:layout_centerInParent="true"
-	      	android:layout_width="wrap_content"
-	      	android:layout_height="wrap_content"/>
-	</RelativeLayout>
-	
     <RelativeLayout
         android:id="@+id/controlRelativeLayout"
 	    android:layout_width="match_parent"
 	    android:layout_height="80dp"
 	    android:layout_alignParentTop="true"
-	    android:background="#88000000" >
+	    android:background="#00000000" >
         
         <TextView
             android:id="@+id/elapsedTextView"
@@ -44,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="11dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:shadowColor="@android:color/black"
             android:shadowRadius="1"
@@ -72,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="11dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="15dp"
             android:shadowColor="@android:color/black"
             android:shadowRadius="1"
@@ -83,6 +58,49 @@
 
     </RelativeLayout>
     
+    
+    <ScrollView
+    	    android:id="@+id/scrollView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_below="@id/controlRelativeLayout"
+    	    >
+        
+	<RelativeLayout
+	    android:id="@+id/screenRelativeLayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="350dp"
+	    android:background="#00000000"
+	    android:minHeight="350dp" >
+
+	    <ImageView
+	        android:id="@+id/ImageView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:src="@drawable/akb_radio" >
+
+    	</ImageView>
+	        
+    	<ProgressBar
+        	android:id="@+id/progressBar"
+        	android:layout_centerInParent="true"
+	      	android:layout_width="wrap_content"
+	      	android:layout_height="wrap_content"/>
+
+    	
+
+	</RelativeLayout>  
+
+    	</ScrollView>
+    
+	
+	           
+    
+	
+	
+    
+    
 	
     <RelativeLayout
         android:layout_alignParentBottom="true"
@@ -92,7 +110,7 @@
          >
 
        	<EditText
-       	    android:id="@+id/play_edit_text"
+       	    android:id="@+id/postEditText"
        	    android:layout_width="270dp"
        	    android:layout_height="wrap_content"
        	    android:layout_marginTop="2dp"
@@ -104,12 +122,11 @@
         </EditText>
 
         <Button
-            android:id="@+id/play_post_button"
+            android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="2dp"
-            android:onClick="postClick"
             android:text="@string/button_send" />
 
     </RelativeLayout>

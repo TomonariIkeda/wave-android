@@ -1,4 +1,4 @@
-package jp.cleartouch.postcast;
+package jp.cleartouch.wave;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
