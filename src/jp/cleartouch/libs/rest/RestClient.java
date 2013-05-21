@@ -179,17 +179,19 @@ public class RestClient{
     	public void onRESTError();
     }
 	
+	////
+	//
+	//  Class Variables
+	//
+	////    
     private static final String TAG = RestClient.class.getSimpleName();
 	
     public static final int REST_REQUEST_STATUS_REQUESTING = 0;
 	public static final int REST_REQUEST_STATUS_COMPLETE = 1;
 	public static final int REST_REQUEST_STATUS_ERROR = 2;
-	
 	private static final int CONNECTION_TIMEOUT = 10000;
 	private static final int DATARETRIEVAL_TIMEOUT = 10000;
 	private static final String BASE_URL = "http://waverestserver-env-u7228bsevb.elasticbeanstalk.com/0.1/";
-	
-
 	
 	private RestCompleteListener onRestCompleteListener;
 }

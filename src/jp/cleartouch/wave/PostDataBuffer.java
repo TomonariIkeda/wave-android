@@ -102,6 +102,7 @@ public class PostDataBuffer extends SparseArray<ArrayList<PostData>>{
 	public ArrayList<PostData> getPdListAt(int sec){
 		
 		ArrayList<PostData> list = this.get(sec);
+	//TODO fix me! sec-3 -> sec	
 		this.delete(sec);
 		
 		if( largestKey < wavePlayer.getDurationInSec() ){

@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -92,12 +90,14 @@ public class WavePlayer extends MediaPlayer{
 		// instantiate postviews and put it in queue
 		PostView tmp;
 		for ( int i = 0; i < NUM_OF_PV_INSTANCE+1; ++i ) {
-			tmp = new PostView(activity, screen);
+			tmp = new PostView(activity);
 			screen.addView(tmp);
 			
 			// set animation listener
-			SlideInAnimation animation = tmp.getSlideInAnimation();
-	        animation.setAnimationListener(slideInAnimationListener);
+			SlideInAnimation slideInAnimation = tmp.getSlideInAnimation();
+			NewPostAnimation newPostAnimation = tmp.getNewPostAnimation(); 
+	        slideInAnimation.setAnimationListener(slideInAnimationListener);
+	        newPostAnimation.setAnimationListener(newPostAnimationListener);
 			addToFreeQueue(tmp);
 		}// end of for loop
 		
@@ -135,12 +135,13 @@ public class WavePlayer extends MediaPlayer{
 	    			
 	    			// set PostData to PostView
 	    			for(PostData postData: listToBeDisplayed){
-		    			if(freePVs.size() > 0){
+		    			if(freePVs.size() - 1 > 0){
 		    				// retrieve available PostView instance for display.
+		    				// reserve one PostView for new post.
 		    				PostView nextPV = freePVs.remove(0);				
 		    				String color = (userName.compareTo(postData.getUserName())==0) ? "yellow" : "white";
 		    				nextPV.setData(postData.getText(), postData.getThumbData(), postData.getUserName(), 
-		    						postData.getCreatedDate(), postData.getCreatedTime(), postData.getY(), postData.getDisplayAt(),color);
+		    						postData.getCreatedDate(), postData.getCreatedTime(), postData.getY(), postData.getDisplayAt(),color, postData.getSlideInAnimationVerocity());
 					    	nextPV.startSlideIn();
 					    	onScreenPVs.add(nextPV);
 					    	if( ! isAnimationRunning )
@@ -239,11 +240,27 @@ public class WavePlayer extends MediaPlayer{
 		LinkedList<int[]> ngRange = new LinkedList<int[]>();
 		LinkedList<int[]> availableRange = new LinkedList<int[]>();
 		LinkedList<int[]> yRange = new LinkedList<int[]>();
-		double velocity = (width + getScreenWidth()) * 1000 / (double) WavePlayer.SLIDE_IN_DURATION;
-		int secToCheck = (int) Math.ceil( velocity / width );
+		//double velocity = (width + getScreenWidth()) * 1000 / (double) WavePlayer.SLIDE_IN_DURATION;
+		//int secToCheck = (int) Math.ceil( velocity / width );
 		
-		// check PostData in past 3sec
 		// TODO fix me! use onScreenPVs instead of pdBuffer.
+		
+		// すべてのonScreenPVsに対して画面右端からの位置を計算。
+		// 位置の値がwidthより小さい場合はNG。
+		for( PostView pv :  onScreenPVs ){
+			int delta = pv.getDisplayAt() - this.getElapsedTimeInSec();
+			// see if distance - width < 0
+			if(pv.getSlideInAnimationVelocity()*delta - width < 0){
+				// {y-coord, 0:Invalid/1:Top/2:Bottom}
+				int[] pointTop = {pv.getYCoord(), 1};
+				int[] pointBottom = {pv.getYCoord()+pv.getHeight(), 2}; 
+				ngRange.add(pointTop);
+				//Log.e(TAG, " added: {" + pointTop[0] + "," + pointTop[1] + "}");
+				ngRange.add(pointBottom);
+				//Log.e(TAG, " added: {" + pointBottom[0] + "," + pointBottom[1] + "}");
+			}
+		}
+		/*
 		for(int i=1; i<4 ; i++){
 			if( targetSec-i > 0 ){
 				ArrayList<PostData> list = pdBuffer.get(targetSec-i);
@@ -260,8 +277,10 @@ public class WavePlayer extends MediaPlayer{
 				}
 			}
 		}// outer for loop
+		*/
 		Log.e(TAG, " size of ngRange(past):" + ngRange.size());
 		
+		/*
 		// check PostData in future
 		for(int i=0; i<=secToCheck ; i++){
 			if( i < durationInSec ){
@@ -276,6 +295,7 @@ public class WavePlayer extends MediaPlayer{
 			}
 		}// outer for loop
 		Log.e(TAG, " size of ngRange(future):" + ngRange.size());
+		*/
 		
 		// sort points
 		Collections.sort(ngRange, new Comparator<int[]>() {
@@ -284,17 +304,19 @@ public class WavePlayer extends MediaPlayer{
 				return lhs[0] - rhs[0];
 			}
 	     });
-				
+		//Log.e(TAG, " ngRange sorted.");
+		
 		// flatten ngRange
 		for(int i=0 ; i<ngRange.size() ; i++){
 			int type = ngRange.get(i)[1];
 			if(type == 0) continue;
-			for(int j=i+1 ; j<ngRange.size() ; j++){
+			
+			for(int j=i+1 ; j<ngRange.size() ; j++){	
 				if( ngRange.get(j)[1]==type ){
 					// mark as invalid 
 					ngRange.get(j)[1]=0;
 					// also mark pairing point as invalid
-					for(int k=j+1 ; k<ngRange.size() ; j++){
+					for(int k=j+1 ; k<ngRange.size() ; k++){	
 						if( ngRange.get(k)[1]!=0 && ngRange.get(k)[1]!=type ){
 							ngRange.get(k)[1]=0;
 							break;
@@ -711,7 +733,7 @@ public class WavePlayer extends MediaPlayer{
 	private SlideInAnimation.AnimationListener slideInAnimationListener  = new AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) { 
-        	
+        	//Log.e (TAG,"slideInAnimation: onAnimationStart");
         	SlideInAnimation anim = (SlideInAnimation) animation;
         	PostView pv = anim.getPostView();
         	if( displayedAtSeekPVs.contains(pv) ){
@@ -735,7 +757,34 @@ public class WavePlayer extends MediaPlayer{
     		addToFreeQueue(pv);
         }
     };
-	
+    
+	/*
+	 * NewPostAnimationListeners
+	 */
+	private NewPostAnimation.AnimationListener newPostAnimationListener  = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+        	//Log.e (TAG,"newPostAnimation: onAnimationStart isAnimationRunning:" + isAnimationRunning);
+        	((NewPostAnimation) animation).onAnimationStart();
+        	//a.onAnimationStart();
+	    	
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) { }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+        	//Log.d (TAG,"onAnimationEnd");
+  	
+    		NewPostAnimation a = (NewPostAnimation) animation;
+    		PostView pv = a.getPostView();
+    		pv.setVisibility(View.INVISIBLE);
+    		onScreenPVs.remove(pv);
+    		addToFreeQueue(pv);
+        }
+    };
+    
     private PostDataBufferListener mPostDataBufferListener = new PostDataBufferListener(){
 
 		@Override
@@ -757,7 +806,7 @@ public class WavePlayer extends MediaPlayer{
 					    				PostData myData = listToBeDisplayed.remove(0);
 					    				PostView pv = freePVs.remove(0);
 					    				String color = (userName==myData.getUserName()) ? "yellow" : "white";
-					    				pv.setData(myData.getText(), myData.getThumbData(), myData.getUserName(), myData.getCreatedDate(), myData.getCreatedTime(), myData.getY(), myData.getDisplayAt(), color);
+					    				pv.setData(myData.getText(), myData.getThumbData(), myData.getUserName(), myData.getCreatedDate(), myData.getCreatedTime(), myData.getY(), myData.getDisplayAt(), color, myData.getSlideInAnimationVerocity());
 						    			pv.startSlideIn();
 						    			pv.animationSetTimeToMove(i*1000);
 								    	onScreenPVs.add(pv);
@@ -869,18 +918,15 @@ public class WavePlayer extends MediaPlayer{
 		public void onClick(View v) {
 			
 			// create PostData
-			int targetDisplayTime = getElapsedTimeInSec()+1;
-			PostData pd = new PostData(v.getContext(), 0, getScreenWidth(), targetDisplayTime, postEditText.getText().toString(), userThumbData, userName, "Apr12 '13", "10:25AM");
-			int y = calculateYForNewPost( targetDisplayTime, pd.getWidth(), pd.getHeight() );
-			pd.setY(y);
-			
-			// add to buffer
-			pdBuffer.addPostData(pd);
+			int targetDisplayTime = getElapsedTimeInSec();
+			PostData postData = new PostData(v.getContext(), 0, getScreenWidth(), targetDisplayTime, postEditText.getText().toString(), userThumbData, userName, "Apr12 '13", "10:25AM");
+			int y = calculateYForNewPost( targetDisplayTime, postData.getWidth(), postData.getHeight() );
+			postData.setY(y);
 			
 			// save postdata to sqlite
 			String userThumbString = Base64.encodeToString(userThumbData, Base64.DEFAULT);
 			WaveSQLiteHelper waveSQLiteHelper = new WaveSQLiteHelper(activity);
-			waveSQLiteHelper.savePost(y, pd.getDisplayAt(), pd.getText(), userThumbString, userName, pd.getCreatedDate(), pd.getCreatedTime());
+			waveSQLiteHelper.savePost(y, postData.getDisplayAt(), postData.getText(), userThumbString, userName, postData.getCreatedDate(), postData.getCreatedTime());
 			
 			// TODO REST
 			String[] sampleUserIds = {"56656680-ad49-11e2-9431-1deab5f008b7","bdbe9d60-ad49-11e2-9431-1deab5f008b7","961591b0-ad49-11e2-9431-1deab5f008b7",
@@ -892,7 +938,22 @@ public class WavePlayer extends MediaPlayer{
 			UUID uuid = UUID.randomUUID();
 			String uuidString = uuid.toString();
 			
-			restProcessor.createPostData(mediaId, sampleUserIds[randomNumber], uuidString, pd);
+			if(freePVs.size() > 0){
+				// retrieve available PostView instance for display.
+				PostView newPV = freePVs.remove(0);				
+				newPV.setData(postData.getText(), postData.getThumbData(), postData.getUserName(), 
+						postData.getCreatedDate(), postData.getCreatedTime(), postData.getY(), postData.getDisplayAt(), "yellow", postData.getSlideInAnimationVerocity());
+		    	//newPV.startNewPostAnimation();
+				if( isAnimationRunning ){
+					newPV.startNewPostAnimation();
+				}else{
+					newPV.pauseAfterStartNewPostAnimation();
+				}
+		    	onScreenPVs.add(newPV);
+
+			}
+			
+//			restProcessor.createPostData(mediaId, sampleUserIds[randomNumber], uuidString, pd);
 			postEditText.setText("");
 			
 			InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -909,6 +970,7 @@ public class WavePlayer extends MediaPlayer{
     private static final String TAG = "WavePlayer";
     private static final int NUM_OF_PV_INSTANCE = 30; 	// Number of PostView instances. Instances will be reused. 5views/sec*8sec=40
     public static final int SLIDE_IN_DURATION = 5000;  // duration of SlideInAnimation
+    public static final int NEW_POST_DURATION = 4000;  // duration of NewPostAnimation
     
     private PostDataBuffer pdBuffer; 					// holds PostData sent from server.
     private ArrayList<PostView> freePVs;  				// Array of PostView instance that can be used

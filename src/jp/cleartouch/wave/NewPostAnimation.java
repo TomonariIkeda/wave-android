@@ -5,12 +5,12 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
 
-public class SlideInAnimation extends TranslateAnimation{
+public class NewPostAnimation extends TranslateAnimation{
 
-    public SlideInAnimation(PostView postView) {
+    public NewPostAnimation(PostView postView) {
     	super(
                 Animation.RELATIVE_TO_SELF,   //fromXType 
-                1.0f,                         //fromXValue
+                0.0f,                         //fromXValue
                 Animation.RELATIVE_TO_PARENT, //toXType
                 -1.0f,                        //toXValue
                 Animation.RELATIVE_TO_SELF,   //fromYType 
@@ -20,15 +20,14 @@ public class SlideInAnimation extends TranslateAnimation{
               );
     	// set reference to PostView
     	pv = postView;
-    	
     }
 
-    private final String TAG = "SlideInAnimation";
+    private final String TAG = "NewPostAnimation";
     private long mElapsedAtPause=0;
-    private long timeToMove=0;
-    private long delta=0;
     private boolean mPaused=false;
+    private boolean pauseAfterStart=false;
     private PostView pv;
+    
     
     @Override
     public boolean getTransformation(long currentTime, Transformation outTransformation) {
@@ -38,7 +37,7 @@ public class SlideInAnimation extends TranslateAnimation{
         if(mPaused)
             setStartTime(currentTime-mElapsedAtPause);
 
-        return super.getTransformation(currentTime + delta, outTransformation);
+        return super.getTransformation(currentTime, outTransformation);
     }
 
     public void pause() {
@@ -46,25 +45,30 @@ public class SlideInAnimation extends TranslateAnimation{
         mElapsedAtPause=0;
         mPaused=true;
     }
-
+    
     public void resume() {
+    	Log.e(TAG, "");
         mPaused=false;
     }
     
-    public void resetTimeToMove(){
-    	this.timeToMove = 0;
-    }
-    
-    public void move() {
-    	this.delta = timeToMove;
-    }
-    
-    public void setTimeToMove(long milisec){
-    	this.timeToMove = milisec;
+    public void onAnimationStart(){
+    	if( pauseAfterStart ){
+    		pauseAfterStart=false;
+    		pause();
+    	}
     }
     
     public PostView getPostView(){
     	return pv;
     }
+    
+    public void setPauseAfterStart(boolean value) {
+    	pauseAfterStart=value;
+    }
+
+    public boolean getPauseAfterStart() {
+    	return pauseAfterStart;
+    }
+    
     
 }

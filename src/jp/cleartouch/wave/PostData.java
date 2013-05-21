@@ -17,7 +17,7 @@ public class PostData {
 	private int y;
 	private int width; // width in pixel
 	private int height; // hight in pixel
-	private int v; // velocity of SlideInAnimation 
+	private int slideInAnimationVerocity; // velocity of SlideInAnimation 
 	private int displayAt; // posted time in sec
 	private String text;
 	private String userName;
@@ -46,7 +46,7 @@ public class PostData {
         this.width = tv.getMeasuredWidth();
         this.height = tv.getMeasuredHeight();
         
-		this.v = (int) ((this.width + screenWidth) * 1000 / (double) WavePlayer.SLIDE_IN_DURATION);
+		this.slideInAnimationVerocity = (int) ((this.width + screenWidth) * 1000 / (double) WavePlayer.SLIDE_IN_DURATION);
 		
         //Log.d(TAG,text+" w:" + this.width + " h:" + height + " v:" + v + " screenWidth:" + screenWidth); 
 	}
@@ -107,8 +107,8 @@ public class PostData {
 		return height;
 	}
 	
-	public int getV() {
-		return v;
+	public int getSlideInAnimationVerocity() {
+		return slideInAnimationVerocity;
 	}
 	
 	public int getDisplayAt() {

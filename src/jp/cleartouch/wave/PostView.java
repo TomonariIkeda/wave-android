@@ -19,14 +19,13 @@ import android.widget.TextView;
 
 public class PostView extends RelativeLayout{
     @SuppressLint("NewApi")
-	public PostView(Context context, RelativeLayout screen) {
+	public PostView(Context context) {
         super(context);
 
         //this.setBackgroundColor(Color.RED);
         this.setVisibility(View.INVISIBLE);
         
         this.context = context;
-        this.screen = screen;
         
         // contentText
         contentText = new TextView(context);
@@ -88,10 +87,14 @@ public class PostView extends RelativeLayout{
         setLayoutParams(layoutParams);
         
         // animation
-		animation = new SlideInAnimation(this);
-        animation.setInterpolator(new LinearInterpolator());
-        animation.setDuration(WavePlayer.SLIDE_IN_DURATION);
-        
+		slideInAnimation = new SlideInAnimation(this);
+        slideInAnimation.setInterpolator(new LinearInterpolator());
+        slideInAnimation.setDuration(WavePlayer.SLIDE_IN_DURATION);
+
+        // animation
+		newPostAnimation = new NewPostAnimation(this);
+        newPostAnimation.setInterpolator(new LinearInterpolator());
+        newPostAnimation.setDuration(WavePlayer.NEW_POST_DURATION);
     }
     
 
@@ -109,37 +112,51 @@ public class PostView extends RelativeLayout{
     public void startSlideIn(){
     	//Log.d (TAG, "startSlideIn()");
     	this.setVisibility(View.VISIBLE);
-    	this.startAnimation(this.animation);
+    	this.startAnimation(this.slideInAnimation);
+    }
+    
+    public void startNewPostAnimation(){
+    	this.setVisibility(View.VISIBLE);
+    	this.startAnimation(this.newPostAnimation);    	
+    }
+    
+    public void pauseAfterStartNewPostAnimation(){
+    	this.newPostAnimation.setPauseAfterStart(true);
+    	this.setVisibility(View.VISIBLE);
+    	this.startAnimation(this.newPostAnimation);  
     }
     
     public void pauseAnimation(){
-    	this.animation.pause();
+    	this.slideInAnimation.pause();
+    	this.newPostAnimation.pause();
     }
 
     /*
      * call before animationMove()
      */
     public void animationSetTimeToMove(long milisec){
-    	this.animation.setTimeToMove(milisec);
+    	this.slideInAnimation.setTimeToMove(milisec);
     }
     
     /*
-     * timeToMove has to be set by calling animationSetTimeToMove()
+     * timeToMove has to be set beforehand by calling animationSetTimeToMove()
      */
     public void animationMove(){
-    	this.animation.move();
+    	this.slideInAnimation.move();
     }
     
     public void resumeAnimation(){
-    	this.animation.resume();
+    	this.slideInAnimation.resume();
+    	this.newPostAnimation.resume();
     }
     
     public void cancelAnimation(){
-    	this.animation.cancel();
+    	this.slideInAnimation.cancel();
+    	this.newPostAnimation.cancel();
     }
     
     public void setData(String text, byte[] thumb_data, String user_name,
-			String created_date, String created_time, int y, int display_at, String color) {
+			String created_date, String created_time, int y, int display_at, String color, int velocity) {
 
     	contentText.setText(text);
     	
@@ -152,6 +169,7 @@ public class PostView extends RelativeLayout{
     	createdTime.setText(created_time);
     	displayAt = display_at;
     	this.setYCoord(y);
+    	this.slideInAnimationVelocity = velocity;
     	
     	if(color=="white"){
     		contentText.setBackgroundResource(R.drawable.postview_bg);
@@ -170,7 +188,7 @@ public class PostView extends RelativeLayout{
     
     public void setThumbnail(int thumb_res_id){
     	this.thumbnail.setImageResource(thumb_res_id);
-    } 
+    }
     
     /*
     public void setCreatedDate(String date){
@@ -183,7 +201,7 @@ public class PostView extends RelativeLayout{
     }
  
     public void setDuration(int duration){
-        this.animation.setDuration(duration);
+        this.slideInAnimation.setDuration(duration);
     }
     
     private void setYCoord(int y){
@@ -207,38 +225,45 @@ public class PostView extends RelativeLayout{
     	return yCoord;
     }
     
-    /*
-    public int getTimeToAppear(){
-    	return timeToAppear;
+    public int getSlideInAnimationVelocity(){
+    	return slideInAnimationVelocity;
     }
-    */
     
     public SlideInAnimation getSlideInAnimation(){
-    	return animation;
+    	return slideInAnimation;
+    }
+    
+    public NewPostAnimation getNewPostAnimation(){
+    	return newPostAnimation;
     }
 
     
+	////
+	//
+	//  Class Variables
+	//
+	////
     private static final String TAG = "PostView";
     
     private int displayAt; // duration time in sec
     private int yCoord; // yCoord of postview in dp
     private int state; // PREPARING, PREPARED, STARTED, FINISHED
-    //private int timeToAppear; // time required for animation to make this view completely visible on screen.
     private static final int STATE_PREPARING = 0;
     private static final int STATE_PREPARED = 1;
     private static final int STATE_STARTED = 2;
     private static final int STATE_FINISHED = 3;
     
+    
     // view properties
-    private RelativeLayout screen;
     private Context context;
     private TextView contentText;
     private ImageView thumbnail;
     private TextView userName;
     //private TextView createdDate;
     private TextView createdTime;
+    private int slideInAnimationVelocity;
     
     private RelativeLayout.LayoutParams layoutParams;
-    private SlideInAnimation animation;
-    
+    private SlideInAnimation slideInAnimation;
+    private NewPostAnimation newPostAnimation;
 }

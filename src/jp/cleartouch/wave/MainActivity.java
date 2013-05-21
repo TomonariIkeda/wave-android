@@ -157,9 +157,8 @@ public class MainActivity extends Activity {
 		super.onPause();
 		
 		// 他のアプリに移ったとき。例）電話着信など。
-		//TODO: isDataPreparedも考慮に入れてきちんと実装する。
-		if(wavePlayer.isPrepared() && wavePlayer.isPlaying())
-			wavePlayer.pausePlayer();
+		wavePlayer.pausePlayer();
+			
 	}	
 	
 	@Override
