@@ -3,14 +3,14 @@
 
     <item android:id="@android:id/background">
         <shape android:shape="line">
-			<stroke android:width="9dp" android:color="#ff888888"/>
+			<stroke android:width="4dp" android:color="#ff888888"/>
 		</shape>
     </item>
 
     <item android:id="@android:id/secondaryProgress">
         <clip>
         <shape android:shape="line">
-			<stroke android:width="9dp" android:color="#ffcc9696"/>
+			<stroke android:width="4dp" android:color="#ffcc9696"/>
 		</shape>
 		</clip>
     </item>
@@ -18,7 +18,7 @@
     <item android:id="@android:id/progress">
         <clip>
         <shape android:shape="line">
-			<stroke android:width="9dp" android:color="#ffff0000"/>
+			<stroke android:width="4dp" android:color="#ffff0000"/>
 		</shape>
 		</clip>
     </item>

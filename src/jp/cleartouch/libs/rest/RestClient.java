@@ -24,7 +24,7 @@ public class RestClient{
 		Log.d(TAG, "getPostData("+from+","+to+")");
 		new Thread(new Runnable() {
 	        public void run() {
-	        	JSONObject jsonObj = doGet(BASE_URL + "posts?media_id=" + media_id + "&from=" + from + "&to=" + to);
+	        	JSONObject jsonObj = sendRequest(METHOD_GET, BASE_URL + "posts?media_id=" + media_id + "&from=" + from + "&to=" + to, "");
 	        	if(jsonObj != null)
 	        		onRestCompleteListener.onGetPostDataComplete(jsonObj);
 	        }
@@ -32,12 +32,26 @@ public class RestClient{
 
 	}
 	
-	public void createPostData(final String uuid, final String user_id, final String media_id, final String text, final int posted_at, final int y) {
+	public void getPostCount(final String media_id) {
+		Log.d(TAG, "getPostCount()");
+		new Thread(new Runnable() {
+	        public void run() {
+	        	JSONObject jsonObj = sendRequest(METHOD_GET, BASE_URL + "post_counts/" + media_id, "");
+	        	if(jsonObj != null)
+	        		onRestCompleteListener.onGetPostCountComplete(jsonObj);
+	        }
+		}).start();
+
+	}
+	
+	public void createPostData(final String uuid, final String user_id, final String media_id, final int type, final String comment, final int display_at, final long created_at, final int y, final int indicatorIndex) {
 		Log.d(TAG, "createPostData()");
 		new Thread(new Runnable() {
 	        public void run() {
-	        	String json = "{\"post_id\": \"" + uuid + "\", \"media_id\": \"" + media_id + "\", \"user_id\": \""+user_id+"\", \"text\": \"" + text + "\", \"posted_at\": \""+posted_at+"\", \"y\": \""+y+"\"}";
-	        	JSONObject jsonObj = doPost(BASE_URL + "posts", json);
+	        	String json = "{\"post_id\": \"" + uuid + "\", \"media_id\": \"" + media_id + "\", \"user_id\": \"" + user_id 
+	        					+ "\", \"type\": \"" + type + "\", \"comment\": \"" + comment + "\", \"display_at\": \"" + display_at 
+	        					+ "\", \"created_at\": \""  + created_at + "\", \"y\": \""  + y + "\", \"indicator_index\": \"" + indicatorIndex + "\"}";
+	        	JSONObject jsonObj = sendRequest(METHOD_POST, BASE_URL + "posts", json);
 	        	if(jsonObj != null){
 	        		onRestCompleteListener.onCreatePostDataComplete(jsonObj);
 	        	}
@@ -45,6 +59,87 @@ public class RestClient{
 		}).start();
 	}
 	
+	public void updatePostCount(final String media_id, final int indicator_index) {
+		Log.d(TAG, "createPostData()");
+		new Thread(new Runnable() {
+	        public void run() {
+	        	String json = "{\"media_id\": \"" + media_id + "\", \"indicator_index\": \"" + indicator_index + "\"}";
+	        	JSONObject jsonObj = sendRequest(METHOD_PUT, BASE_URL + "post_counts", json);
+	        	if(jsonObj != null){
+	        		onRestCompleteListener.onUpdatePostCountComplete(jsonObj);
+	        	}
+	        }
+		}).start();
+	}
+
+	private JSONObject sendRequest(String method, String url, String json){
+		HttpURLConnection urlConnection = null;
+		try {
+			URL urlToRequest = new URL(url);
+			urlConnection = (HttpURLConnection) urlToRequest.openConnection();
+			urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+			urlConnection.setRequestProperty("Accept", "application/json");
+			urlConnection.setRequestMethod(method);
+			
+			if(method == "POST" || method == "PUT"){
+				urlConnection.setRequestProperty("Content-Type", "application/json");
+				urlConnection.setDoOutput(true);
+				urlConnection.connect();
+
+				// send request
+				byte[] outputBytes = json.getBytes("UTF-8");
+				OutputStream os = urlConnection.getOutputStream();
+				os.write(outputBytes);
+				os.close();				
+			}
+
+			
+			int statusCode = urlConnection.getResponseCode();
+			
+	        if ((method == "GET" || method == "PUT") && statusCode != HttpURLConnection.HTTP_OK) {
+	        	// handle any other errors, like 404, 500,..
+	        	Log.e (TAG, " URL:" + url + " Invalid HTTP Status Code:" + statusCode);
+	        	urlConnection.disconnect();
+	        	urlConnection = null;
+	        	onRestCompleteListener.onGetError(url);
+	        	return null;
+	        }else if(method == "POST" && statusCode != HttpURLConnection.HTTP_CREATED){
+	        	// handle any other errors, like 404, 500,..
+	        	Log.e (TAG, " URL:" + url + " Invalid HTTP Status Code:" + statusCode);
+	        	urlConnection.disconnect();
+	        	urlConnection = null;
+	        	onRestCompleteListener.onRESTError();
+	        	return null;
+	        }
+	        
+			// get Response
+			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+			return new JSONObject(getResponseText(in, url));
+			
+		} catch (MalformedURLException e) {
+	        // URL is invalid
+			Log.e (TAG, e.toString());
+	    	onRestCompleteListener.onRESTError();
+		} catch (SocketTimeoutException e) {
+	        // data retrieval or connection timed out
+			Log.e (TAG, e.toString());
+	    	onRestCompleteListener.onRESTError();
+		} catch (IOException e) {
+			Log.e (TAG, e.toString());
+		} catch (JSONException e) {
+	        // response body is no valid JSON string
+			Log.e (TAG, e.toString());
+	    	onRestCompleteListener.onRESTError();
+	    } finally {
+	        if (urlConnection != null) {
+	            urlConnection.disconnect();
+	            urlConnection = null;
+	        }
+	    }
+		
+		return null;		
+	}
+/*	
 	private JSONObject doPost(String url, String json){
 		HttpURLConnection urlConnection = null;
 		try {
@@ -154,6 +249,7 @@ public class RestClient{
 	    
 	    return null;
 	}
+*/
 	
 	private String getResponseText(InputStream inStream, String url) {
 	    // very nice trick from 
@@ -167,14 +263,21 @@ public class RestClient{
 	    return str;
 	}
 	
+	
+	////
+	//
+	//  Class Callbacks
+	//
+	////	
 	public void setOnRestCompleteListener(RestCompleteListener mRestCompleteListener) {
 		this.onRestCompleteListener = mRestCompleteListener;
 	}
 	
     public interface RestCompleteListener {
     	public void onGetPostDataComplete(JSONObject jsonObject);
+    	public void onGetPostCountComplete(JSONObject jsonObject);
     	public void onCreatePostDataComplete(JSONObject jsonObject);
-    	//public void onGetPostDataError(String url);
+    	public void onUpdatePostCountComplete(JSONObject jsonObject);
     	public void onGetError(String url);
     	public void onRESTError();
     }
@@ -191,6 +294,10 @@ public class RestClient{
 	public static final int REST_REQUEST_STATUS_ERROR = 2;
 	private static final int CONNECTION_TIMEOUT = 10000;
 	private static final int DATARETRIEVAL_TIMEOUT = 10000;
+	private static final String METHOD_GET = "GET";
+	private static final String METHOD_POST = "POST";
+	private static final String METHOD_PUT = "PUT";
+	
 	private static final String BASE_URL = "http://waverestserver-env-u7228bsevb.elasticbeanstalk.com/0.1/";
 	
 	private RestCompleteListener onRestCompleteListener;

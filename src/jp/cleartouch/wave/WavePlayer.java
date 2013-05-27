@@ -8,63 +8,67 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
-
 import jp.cleartouch.libs.rest.RestProcessor;
 import jp.cleartouch.libs.rest.RestProcessor.RestProcessorListener;
-import jp.cleartouch.postcast.R;
 import jp.cleartouch.wave.PostDataBuffer.PostDataBufferListener;
 import jp.cleartouch.wave.PostDataReader.PostDataReaderListener;
-
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
+import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
+import jp.cleartouch.postcast.R;
 import jp.cleartouch.sqlite.WaveSQLiteHelper;
 
 public class WavePlayer extends MediaPlayer{
 	
-	public WavePlayer(Activity activity, RelativeLayout screen, RelativeLayout control, SeekBar seekBar, 
-							TextView elapsed, TextView duration, ProgressBar loading, String mediaId,
-							EditText postEditText, Button postButton, String userName, byte[] userThumbData){
+	public WavePlayer(Activity activity, String mediaId, int mediaDuration, String userName, byte[] userThumbData){
 		super();
 		setAudioStreamType(AudioManager.STREAM_MUSIC);
 		
-		// set activity and screen where PostView will be displayed
-		this.activity = activity;
-		this.screen = screen;
-		this.loadingProgressBar = loading;
-		this.seekBar = seekBar;
-		this.durationTextView = duration;
-		this.elapsedTextView = elapsed;
-		this.control = control;
+		// init
 		this.mediaId = mediaId;
-		this.postEditText = postEditText;
-		this.postButton = postButton;
+		this.mediaDuration = mediaDuration;
 		this.userName = userName;
 		this.userThumbData = userThumbData;
+		
+		this.activity = activity;
+		this.screen = (RelativeLayout) activity.findViewById(R.id.screenRelativeLayout);
+		this.control = (RelativeLayout) activity.findViewById(R.id.controlRelativeLayout);
+		this.seekBar = (SeekBar) activity.findViewById(R.id.seekBar);
+		this.seekBar.setThumbOffset((int) Helpers.convertDpToPixel(8, activity));
+		this.loadingProgressBar = (ProgressBar) activity.findViewById(R.id.progressBar);	
+		this.playImageView = (ImageView) activity.findViewById(R.id.playImageView);
+		this.pauseImageView = (ImageView) activity.findViewById(R.id.pauseImageView);
+		this.durationTextView = (TextView) activity.findViewById(R.id.durationTextView);
+		this.elapsedTextView = (TextView) activity.findViewById(R.id.elapsedTextView);
+		this.postEditText = (EditText) activity.findViewById(R.id.postEditText);
+		this.postButton = (Button) activity.findViewById(R.id.postButton);
+		this.clapButton = (ImageButton) activity.findViewById(R.id.clapButton);
+		this.indicator = new Indicator(this);
+		
 		
 		// setup PostData buffer and displayQueue
 		pdBuffer = new PostDataBuffer(this);
@@ -73,6 +77,7 @@ public class WavePlayer extends MediaPlayer{
 		displayedAtSeekPVs = new HashSet<PostView>();
 		postDataReader = new PostDataReader(this);
 		restProcessor = new RestProcessor(this);
+		waveSQLiteHelper = new WaveSQLiteHelper(activity);
 		
 		// register listeners
 		this.setOnPreparedListener(mPreparedListener);
@@ -81,26 +86,51 @@ public class WavePlayer extends MediaPlayer{
 		this.setOnBufferingUpdateListener(mBufferingListener);
 		this.setOnSeekCompleteListener(mSeekCompleteListener);
 		this.seekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
-		this.screen.setOnTouchListener(mScreenTouchListener);
+		this.playImageView.setOnClickListener(mPlayImageViewClickListener);
+		this.pauseImageView.setOnClickListener(mPauseImageViewClickListener);
 		this.postDataReader.setOnPostDataReaderListener(mPostDataReaderListener);
 		this.pdBuffer.setOnPostDataBufferListener(mPostDataBufferListener);
 		this.postButton.setOnClickListener(mPostButtonOnClickListener);
+		this.clapButton.setOnClickListener(mClapButtonOnClickListener);
 		this.restProcessor.setOnRestProcessorListener(mRestProcessorListener);
 		
 		// instantiate postviews and put it in queue
 		PostView tmp;
 		for ( int i = 0; i < NUM_OF_PV_INSTANCE+1; ++i ) {
-			tmp = new PostView(activity);
-			screen.addView(tmp);
-			
-			// set animation listener
-			SlideInAnimation slideInAnimation = tmp.getSlideInAnimation();
-			NewPostAnimation newPostAnimation = tmp.getNewPostAnimation(); 
-	        slideInAnimation.setAnimationListener(slideInAnimationListener);
-	        newPostAnimation.setAnimationListener(newPostAnimationListener);
+			tmp = createNewPostView();
 			addToFreeQueue(tmp);
 		}// end of for loop
 		
+		// touch delegates
+        this.control.post(new Runnable() {
+            public void run() {
+                // Post in the parent's message queue to make sure the parent
+                // lays out its children before we call getHitRect()
+            	TouchDelegate expandedArea;
+            	Rect delegateArea = new Rect();
+
+                playImageView.getHitRect(delegateArea);
+                delegateArea.top -= 10;
+                delegateArea.bottom += 10;
+                delegateArea.left -= 30;
+                delegateArea.right += 30;
+                expandedArea = new TouchDelegate(delegateArea,playImageView);
+                if (View.class.isInstance(playImageView.getParent())) {
+                    ((View) playImageView.getParent()).setTouchDelegate(expandedArea);
+                }
+                
+                pauseImageView.getHitRect(delegateArea);
+                delegateArea.top -= 10;
+                delegateArea.bottom += 10;
+                delegateArea.left -= 30;
+                delegateArea.right += 30;
+                expandedArea = new TouchDelegate(delegateArea,pauseImageView);
+                if (View.class.isInstance(pauseImageView.getParent())) {
+                    ((View) pauseImageView.getParent()).setTouchDelegate(expandedArea);
+                }
+            };
+        });
+        
 	}
 	
 	/*
@@ -112,7 +142,7 @@ public class WavePlayer extends MediaPlayer{
 		// get first 1 minutes of PostData
 		startPositionInSec = 0;
 		postDataReader.startRetrievingPostData(1);
-		
+		restProcessor.getPostCounts(mediaId);
 		super.setDataSource(audio_path);
 		super.prepareAsync();
 	}
@@ -135,13 +165,12 @@ public class WavePlayer extends MediaPlayer{
 	    			
 	    			// set PostData to PostView
 	    			for(PostData postData: listToBeDisplayed){
-		    			if(freePVs.size() - 1 > 0){
+		    			if(freePVs.size() > 0){
 		    				// retrieve available PostView instance for display.
-		    				// reserve one PostView for new post.
 		    				PostView nextPV = freePVs.remove(0);				
 		    				String color = (userName.compareTo(postData.getUserName())==0) ? "yellow" : "white";
-		    				nextPV.setData(postData.getText(), postData.getThumbData(), postData.getUserName(), 
-		    						postData.getCreatedDate(), postData.getCreatedTime(), postData.getY(), postData.getDisplayAt(),color, postData.getSlideInAnimationVerocity());
+		    				nextPV.setData(postData.getType(), postData.getComment(), postData.getThumbData(), postData.getUserName(), 
+		    						postData.getCreatedAt(), postData.getY(), postData.getDisplayAt(),color);
 					    	nextPV.startSlideIn();
 					    	onScreenPVs.add(nextPV);
 					    	if( ! isAnimationRunning )
@@ -182,6 +211,8 @@ public class WavePlayer extends MediaPlayer{
 		if( isPrepared() ){
 			if( ! isPlaying() ){
 				Log.d (TAG, "player started.");
+				playImageView.setVisibility(View.INVISIBLE);
+				pauseImageView.setVisibility(View.VISIBLE);
 				hideLoading();
 				super.start();
 				resumeAnimation();
@@ -196,6 +227,8 @@ public class WavePlayer extends MediaPlayer{
 		if( isPrepared() ){
 			if( isPlaying() ) {
 				Log.d (TAG, "player paused.");
+				playImageView.setVisibility(View.VISIBLE);
+				pauseImageView.setVisibility(View.INVISIBLE);
 				super.pause();
 				pauseAnimation();
 				stopUpdatingSeekBar();
@@ -235,18 +268,12 @@ public class WavePlayer extends MediaPlayer{
 	}
 	
 	public int calculateYForNewPost(int targetSec, final int width, final int height){
-		Log.e(TAG, "calculateYForNewPost(" + targetSec + "," + width + "," + height + ")");
+		Log.d (TAG, "calculateYForNewPost(" + targetSec + "," + width + "," + height + ")");
 		
 		LinkedList<int[]> ngRange = new LinkedList<int[]>();
 		LinkedList<int[]> availableRange = new LinkedList<int[]>();
 		LinkedList<int[]> yRange = new LinkedList<int[]>();
-		//double velocity = (width + getScreenWidth()) * 1000 / (double) WavePlayer.SLIDE_IN_DURATION;
-		//int secToCheck = (int) Math.ceil( velocity / width );
 		
-		// TODO fix me! use onScreenPVs instead of pdBuffer.
-		
-		// すべてのonScreenPVsに対して画面右端からの位置を計算。
-		// 位置の値がwidthより小さい場合はNG。
 		for( PostView pv :  onScreenPVs ){
 			int delta = pv.getDisplayAt() - this.getElapsedTimeInSec();
 			// see if distance - width < 0
@@ -255,48 +282,10 @@ public class WavePlayer extends MediaPlayer{
 				int[] pointTop = {pv.getYCoord(), 1};
 				int[] pointBottom = {pv.getYCoord()+pv.getHeight(), 2}; 
 				ngRange.add(pointTop);
-				//Log.e(TAG, " added: {" + pointTop[0] + "," + pointTop[1] + "}");
 				ngRange.add(pointBottom);
-				//Log.e(TAG, " added: {" + pointBottom[0] + "," + pointBottom[1] + "}");
 			}
 		}
-		/*
-		for(int i=1; i<4 ; i++){
-			if( targetSec-i > 0 ){
-				ArrayList<PostData> list = pdBuffer.get(targetSec-i);
-				Log.e(TAG, " size of pdBuffer("+(targetSec-i)+"): " + list.size());
-				for (PostData pd : list) {
-					// see if X2 > 0
-					if(pd.getWidth() - pd.getV()*i > 0){
-						// {y-coord, 0:Invalid/1:Top/2:Bottom}
-						int[] pointTop = {pd.getY(), 1};
-						int[] pointBottom = {pd.getY()+pd.getHeight(), 2}; 
-						ngRange.add(pointTop);
-						ngRange.add(pointBottom);
-					}
-				}
-			}
-		}// outer for loop
-		*/
-		Log.e(TAG, " size of ngRange(past):" + ngRange.size());
-		
-		/*
-		// check PostData in future
-		for(int i=0; i<=secToCheck ; i++){
-			if( i < durationInSec ){
-				ArrayList<PostData> list = pdBuffer.get(targetSec+i);
-				for (PostData pd : list) {
-					// {y-coord, 0:Invalid/1:Top/2:Bottom}
-					int[] pointTop = {pd.getY(), 1};
-					int[] pointBottom = {pd.getY()+pd.getHeight(), 2}; 
-					ngRange.add(pointTop);
-					ngRange.add(pointBottom);
-				}
-			}
-		}// outer for loop
-		Log.e(TAG, " size of ngRange(future):" + ngRange.size());
-		*/
-		
+
 		// sort points
 		Collections.sort(ngRange, new Comparator<int[]>() {
 			@Override
@@ -304,7 +293,6 @@ public class WavePlayer extends MediaPlayer{
 				return lhs[0] - rhs[0];
 			}
 	     });
-		//Log.e(TAG, " ngRange sorted.");
 		
 		// flatten ngRange
 		for(int i=0 ; i<ngRange.size() ; i++){
@@ -329,15 +317,15 @@ public class WavePlayer extends MediaPlayer{
 			}
 		}
 		
-		// remove invalid point
+		/*
 		for(int i=0 ; i<ngRange.size() ; i++){
 			Log.e(TAG,"  ["+i+"] = (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 		}
+		*/
+		// remove invalid point
 		ArrayList<int[]> objToRemove = new ArrayList<int[]>();
 		for(int i=0 ; i<ngRange.size() ; i++){
-			Log.e(TAG," checking (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 			if( ngRange.get(i)[1]==0 ){
-				Log.e(TAG," to remove " + i + " (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 				objToRemove.add(ngRange.get(i));
 			}
 		}
@@ -345,12 +333,6 @@ public class WavePlayer extends MediaPlayer{
 		for(int i=0 ; i<objToRemove.size() ; i++){
 			int[] obj = objToRemove.get(i);
 			ngRange.remove(obj);
-			//Log.e(TAG," removed " + " (" + obj[0] + "," + obj[1] + ")");
-		}
-		
-		// test
-		for(int i=0 ; i<ngRange.size() ; i++){
-			Log.e(TAG,"  ["+i+"] = (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 		}
 		
 		// remove too narrow range
@@ -368,26 +350,15 @@ public class WavePlayer extends MediaPlayer{
 			}
 		}
 		// remove invalid point
-		for(int i=0 ; i<ngRange.size() ; i++){
-			Log.e(TAG,"  ["+i+"] = (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
-		}
 		objToRemove = new ArrayList<int[]>();
 		for(int i=0 ; i<ngRange.size() ; i++){
-			Log.e(TAG," checking (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 			if( ngRange.get(i)[1]==0 ){
-				Log.e(TAG," to remove " + i + " (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 				objToRemove.add(ngRange.get(i));
 			}
 		}
 		for(int i=0 ; i<objToRemove.size() ; i++){
 			int[] obj = objToRemove.get(i);
 			ngRange.remove(obj);
-			//Log.e(TAG," removed " + " (" + obj[0] + "," + obj[1] + ")");
-		}
-		
-		// test
-		for(int i=0 ; i<ngRange.size() ; i++){
-			Log.e(TAG,"  final ng ["+i+"] = (" + ngRange.get(i)[0] + "," + ngRange.get(i)[1] + ")");
 		}
 		
 		// calculate availableRange
@@ -410,11 +381,6 @@ public class WavePlayer extends MediaPlayer{
 			}
 	     });
 		
-		// test
-		for(int i=0 ; i<availableRange.size() ; i++){
-			Log.e(TAG,"  final availableRange ["+i+"] = (" + availableRange.get(i)[0] + "," + availableRange.get(i)[1] + ")");
-		}
-		
 		// calculate Y Range
 		for(int i=0 ; i<availableRange.size() ; i++){
 
@@ -425,7 +391,6 @@ public class WavePlayer extends MediaPlayer{
 				int[] bottomPoint = availableRange.get(i);
 				int[] topPoint = availableRange.get(i-1);
 				int delta = bottomPoint[0] - topPoint[0] - height;
-				//Log.e(TAG,"  bottomPoint:"+bottomPoint[0]+" topPoint:" + topPoint[0] + " : delta " + height);
 				if( delta >= 0 ){
 					int[] newBottom = {bottomPoint[0] - height, 2};
 					yRange.add(topPoint);
@@ -433,11 +398,6 @@ public class WavePlayer extends MediaPlayer{
 				}
 			}
 			
-		}
-
-		// test
-		for(int i=0 ; i<yRange.size() ; i++){
-			Log.e(TAG,"  final yRange ["+i+"] = (" + yRange.get(i)[0] + "," + yRange.get(i)[1] + ")");
 		}
 		
 		int y;
@@ -454,68 +414,10 @@ public class WavePlayer extends MediaPlayer{
 			// get completely random Y from screen
 			y = random.nextInt((int) Helpers.convertPixelsToDp(screen.getHeight(), activity) - height);
 		}
-		Log.e(TAG,"  Y:" + y);
 		
+		//Log.d (TAG,"  Y:" + y);
 		return y;
 	}
-	
-	/*
-	public boolean isControlVisible(){
-		return control.isShown();
-	}
-	
-
-	public void extendHideControlTimeout(){
-		hideControlTimeout = 2000;
-	}
-	
-	public void cancelHideControlAnimation(){
-		if(hideControlAnimationTimerTask != null){
-			hideControlAnimationTimerTask.cancel();
-			hideControlAnimationTimerTask = null;
-		}
-	}
-	
-	public boolean isHideControlAnimationRunning(){
-		return isHideControlAnimationRunning;
-	}
-	
-	// to extend counting, call extendHideControlTimeout()
-	public void startCountForHideControl(){
-		
-	    final int INTERVAL = 1000;
-
-	    hideControlAnimationTimerTask = new TimerTask(){
-	    	long elapsed;
-            @Override
-            public void run() {
-                elapsed += INTERVAL;
-                if(elapsed >= hideControlTimeout){
-                    this.cancel();
-                    Log.i(TAG,"setAnimation(hideControlAnimation)");
-                    control.clearAnimation();
-                    hideControlAnimation = new HideControlAnimation();
-            		hideControlAnimation.setInterpolator(new LinearInterpolator());
-            		hideControlAnimation.setDuration(600);
-            		hideControlAnimation.setAnimationListener(hideControlAnimationListener);
-            		control.setAnimation(hideControlAnimation);
-                    return;
-                }
-            }
-        };
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(hideControlAnimationTimerTask, INTERVAL, INTERVAL);
-	}
-
-	public void showControl(){
-		control.clearAnimation();
-		showControlAnimation = new ShowControlAnimation();
-		showControlAnimation.setInterpolator(new LinearInterpolator());
-		showControlAnimation.setDuration(0);
-		showControlAnimation.setAnimationListener(showControlAnimationListener);
-		control.setAnimation(showControlAnimation);
-	}
-	*/
 	
 	public int getDurationInSec(){
 		return this.durationInSec;
@@ -545,12 +447,29 @@ public class WavePlayer extends MediaPlayer{
 		return mediaId;
 	}
 	
+	public int getMediaDuration(){
+		return mediaDuration;
+	}
+	
+	public RelativeLayout getControl(){
+		return this.control;
+	}
+	
+	public SeekBar getSeekBar() {
+		return seekBar;
+	}
+	
+	public ImageView getPlayImageView(){
+		return this.playImageView;
+	}
+	
 	@Override
 	public void seekTo(int msec){
 		Log.d (TAG, "SeekTo()");
 		
 		super.seekTo(msec);
 	}
+	
 	
 	private void stopUpdatingSeekBar(){
 		isUpdatingSeekBar = false;
@@ -567,6 +486,46 @@ public class WavePlayer extends MediaPlayer{
 	private void startUpdatingElapsedText(){
 		isUpdatingElapsedText = true;
 	}
+	
+	private PostView createNewPostView(){
+		PostView newPV = new PostView(this);
+		screen.addView(newPV);
+		SlideInAnimation slideInAnimation = newPV.getSlideInAnimation();
+		NewPostAnimation newPostAnimation = newPV.getNewPostAnimation(); 
+        slideInAnimation.setAnimationListener(slideInAnimationListener);
+        newPostAnimation.setAnimationListener(newPostAnimationListener);
+        
+        return newPV;
+	}
+    
+	private void createNewPost(PostData postData){
+		// save new post to sqlite
+		String userThumbString = Base64.encodeToString(userThumbData, Base64.DEFAULT);
+		WaveSQLiteHelper waveSQLiteHelper = new WaveSQLiteHelper(activity);
+		waveSQLiteHelper.savePost(PostData.TYPE_COMMENT, postData.getY(), postData.getDisplayAt(), postData.getComment(), userThumbString, userName, postData.getCreatedAt());
+		
+		// send new post to server
+		String[] sampleUserIds = {"56656680-ad49-11e2-9431-1deab5f008b7","bdbe9d60-ad49-11e2-9431-1deab5f008b7","961591b0-ad49-11e2-9431-1deab5f008b7",
+				"aec9ba10-ad49-11e2-9431-1deab5f008b7", "62aa6c10-ad49-11e2-9431-1deab5f008b7","78331e10-ad49-11e2-9431-1deab5f008b7",
+				"c6c2a8c0-ad49-11e2-9431-1deab5f008b7","d6a21320-ad49-11e2-9431-1deab5f008b7"};
+		Random random = new Random();
+		int randomNumber = random.nextInt(7);
+		
+		UUID uuid = UUID.randomUUID();
+		String uuidString = uuid.toString();
+		int indicatorIndex = indicator.getColumnIndex( getElapsedTimeInSec() );
+		restProcessor.createPostData(mediaId, sampleUserIds[randomNumber], uuidString, postData, indicatorIndex);
+
+		waveSQLiteHelper.incrementPostCount(indicatorIndex);
+		indicator.update();
+	}
+	
+	
+	////
+	//
+	//  EventListerners
+	//
+	////		
 	
 	/*
 	 * MediaPlayerListeners
@@ -789,7 +748,7 @@ public class WavePlayer extends MediaPlayer{
 
 		@Override
 		public void onPostDataBufferReady(final int fromSec) {
-			Log.e (TAG, "onPostDataBufferReady("+fromSec+")");
+			Log.d (TAG, "onPostDataBufferReady("+fromSec+")");
 			
 			activity.runOnUiThread(new Runnable() {
         		public void run() {
@@ -806,7 +765,7 @@ public class WavePlayer extends MediaPlayer{
 					    				PostData myData = listToBeDisplayed.remove(0);
 					    				PostView pv = freePVs.remove(0);
 					    				String color = (userName==myData.getUserName()) ? "yellow" : "white";
-					    				pv.setData(myData.getText(), myData.getThumbData(), myData.getUserName(), myData.getCreatedDate(), myData.getCreatedTime(), myData.getY(), myData.getDisplayAt(), color, myData.getSlideInAnimationVerocity());
+					    				pv.setData(myData.getType(), myData.getComment(), myData.getThumbData(), myData.getUserName(), myData.getCreatedAt(), myData.getY(), myData.getDisplayAt(), color);
 						    			pv.startSlideIn();
 						    			pv.animationSetTimeToMove(i*1000);
 								    	onScreenPVs.add(pv);
@@ -870,22 +829,26 @@ public class WavePlayer extends MediaPlayer{
 		}
 
 		@Override
-		public void onError() {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onError() { }
+		
     };
     
-    private RelativeLayout.OnTouchListener mScreenTouchListener = new OnTouchListener(){
+    private View.OnClickListener mPlayImageViewClickListener = new OnClickListener(){
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			Log.d (TAG, "onTouch()");
-			
-			if( event.getAction() == MotionEvent.ACTION_DOWN ){
-				togglePlayPause();
-			}
-			return false;
+		public void onClick(View v) {
+			//Log.d (TAG, "onClick()");
+			togglePlayPause();
+		}
+    	
+    };
+    
+    private View.OnClickListener mPauseImageViewClickListener = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			//Log.d (TAG, "onClick()");
+			togglePlayPause();
 		}
     	
     };
@@ -893,25 +856,65 @@ public class WavePlayer extends MediaPlayer{
     private RestProcessor.RestProcessorListener mRestProcessorListener = new RestProcessorListener(){
 
 		@Override
-		public void onGetPostDataComplete(int min) {
-			// TODO Auto-generated method stub
-			
+		public void onGetPostDataComplete(int min) { }
+
+		@Override
+		public void onCreatePostDataComplete(String uuid) { }
+
+		@Override
+		public void onError() { }
+
+		@Override
+		public void onGetPostCountComplete() { 
+			Log.d (TAG,"onGetPostCountComplete()!!");
+			indicator.update();
 		}
 
 		@Override
-		public void onCreatePostDataComplete(String uuid) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onError() {
+		public void onUpdatePostCountComplete(int count_at) {
 			// TODO Auto-generated method stub
 			
 		}
     	
     };
-    
+
+    private View.OnClickListener mClapButtonOnClickListener = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			// create PostData
+			int targetDisplayTime = getElapsedTimeInSec();
+			long createdTime = System.currentTimeMillis() / 1000L;
+			PostData postData = new PostData(v.getContext(), PostData.TYPE_CLAP, 0, getScreenWidth(), targetDisplayTime, "", userThumbData, userName, createdTime);
+			
+			PostView newPV = createNewPostView();
+	        newPV.setData(postData.getType(), postData.getComment(), postData.getThumbData(), postData.getUserName(), 
+					postData.getCreatedAt(), 0, postData.getDisplayAt(), "yellow");
+			
+			newPV.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+			int y = calculateYForNewPost( targetDisplayTime, newPV.getMeasuredWidth(), newPV.getMeasuredHeight() );
+			postData.setY(y);
+			newPV.setYCoord(y);
+
+			if( isAnimationRunning ){
+				newPV.startNewPostAnimation();
+			}else{
+				newPV.pauseAfterStartNewPostAnimation();
+			}
+	    	onScreenPVs.add(newPV);
+
+	    	if(freePVs.size() > 0){
+	    		freePVs.remove(0);
+			}
+	    	
+	    	createNewPost(postData);
+			
+			InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            mgr.hideSoftInputFromWindow(activity.getWindow().getCurrentFocus().getWindowToken(), 0);
+		}
+	};
+	
     private View.OnClickListener mPostButtonOnClickListener = new View.OnClickListener() {
 		
 		@Override
@@ -919,48 +922,38 @@ public class WavePlayer extends MediaPlayer{
 			
 			// create PostData
 			int targetDisplayTime = getElapsedTimeInSec();
-			PostData postData = new PostData(v.getContext(), 0, getScreenWidth(), targetDisplayTime, postEditText.getText().toString(), userThumbData, userName, "Apr12 '13", "10:25AM");
-			int y = calculateYForNewPost( targetDisplayTime, postData.getWidth(), postData.getHeight() );
+			long createdTime = System.currentTimeMillis() / 1000L;
+			PostData postData = new PostData(v.getContext(), PostData.TYPE_COMMENT, 0, getScreenWidth(), targetDisplayTime, postEditText.getText().toString(), userThumbData, userName, createdTime);
+			
+			PostView newPV = createNewPostView();
+			newPV.setData(postData.getType(), postData.getComment(), postData.getThumbData(), postData.getUserName(), 
+					postData.getCreatedAt(), 0, postData.getDisplayAt(), "yellow");
+			
+			newPV.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+			//int y = calculateYForNewPost( targetDisplayTime, postData.getWidth(), postData.getHeight() );
+			int y = calculateYForNewPost( targetDisplayTime, newPV.getMeasuredWidth(), newPV.getMeasuredHeight() );
 			postData.setY(y);
+			newPV.setYCoord(y);
 			
-			// save postdata to sqlite
-			String userThumbString = Base64.encodeToString(userThumbData, Base64.DEFAULT);
-			WaveSQLiteHelper waveSQLiteHelper = new WaveSQLiteHelper(activity);
-			waveSQLiteHelper.savePost(y, postData.getDisplayAt(), postData.getText(), userThumbString, userName, postData.getCreatedDate(), postData.getCreatedTime());
-			
-			// TODO REST
-			String[] sampleUserIds = {"56656680-ad49-11e2-9431-1deab5f008b7","bdbe9d60-ad49-11e2-9431-1deab5f008b7","961591b0-ad49-11e2-9431-1deab5f008b7",
-					"aec9ba10-ad49-11e2-9431-1deab5f008b7", "62aa6c10-ad49-11e2-9431-1deab5f008b7","78331e10-ad49-11e2-9431-1deab5f008b7",
-					"c6c2a8c0-ad49-11e2-9431-1deab5f008b7","d6a21320-ad49-11e2-9431-1deab5f008b7"};
-			Random random = new Random();
-			int randomNumber = random.nextInt(7);
-			
-			UUID uuid = UUID.randomUUID();
-			String uuidString = uuid.toString();
-			
-			if(freePVs.size() > 0){
-				// retrieve available PostView instance for display.
-				PostView newPV = freePVs.remove(0);				
-				newPV.setData(postData.getText(), postData.getThumbData(), postData.getUserName(), 
-						postData.getCreatedDate(), postData.getCreatedTime(), postData.getY(), postData.getDisplayAt(), "yellow", postData.getSlideInAnimationVerocity());
-		    	//newPV.startNewPostAnimation();
-				if( isAnimationRunning ){
-					newPV.startNewPostAnimation();
-				}else{
-					newPV.pauseAfterStartNewPostAnimation();
-				}
-		    	onScreenPVs.add(newPV);
-
+			if( isAnimationRunning ){
+				newPV.startNewPostAnimation();
+			}else{
+				newPV.pauseAfterStartNewPostAnimation();
+			}
+	    	onScreenPVs.add(newPV);
+		    
+		    if(freePVs.size() > 0){
+		    	freePVs.remove(0);
 			}
 			
-//			restProcessor.createPostData(mediaId, sampleUserIds[randomNumber], uuidString, pd);
-			postEditText.setText("");
+			createNewPost(postData);
 			
+			postEditText.setText("");
 			InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             mgr.hideSoftInputFromWindow(activity.getWindow().getCurrentFocus().getWindowToken(), 0);
 		}
 	};
-    
+
 	
 	////
 	//
@@ -980,20 +973,26 @@ public class WavePlayer extends MediaPlayer{
     private int durationInSec = 0;
     private int startPositionInSec = 0; // set when start retrieving data
     private String mediaId;
+    private int mediaDuration; // sec
     private String userName;
     private byte[] userThumbData;
     private PostDataReader postDataReader;
     private RestProcessor restProcessor;
+    private WaveSQLiteHelper waveSQLiteHelper;
     
     private Activity activity;
     private RelativeLayout screen;
     private RelativeLayout control;
+    private Indicator indicator;
     private ProgressBar loadingProgressBar;
     private SeekBar seekBar;
+    private ImageView playImageView;
+    private ImageView pauseImageView;
     private TextView durationTextView;
     private TextView elapsedTextView;
     private EditText postEditText;
     private Button postButton;
+    private ImageButton clapButton;
     private boolean isPlayerPrepared = false;
     private boolean isDataPrepared = false;
     private boolean isAnimationRunning = false;

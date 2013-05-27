@@ -65,13 +65,16 @@ public class PostDataReader {
 		}
 
 		@Override
-		public void onError() {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onError() { }
 
 		@Override
-		public void onCreatePostDataComplete(String uuid) {}
+		public void onCreatePostDataComplete(String uuid) { }
+
+		@Override
+		public void onGetPostCountComplete() { }
+
+		@Override
+		public void onUpdatePostCountComplete(int count_at) { }
 		
 	};
 	

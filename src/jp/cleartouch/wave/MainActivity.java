@@ -2,28 +2,19 @@ package jp.cleartouch.wave;
 
 import java.io.IOException;
 import org.json.JSONObject;
-
 import jp.cleartouch.libs.rest.RestClient;
 import jp.cleartouch.libs.rest.RestClient.RestCompleteListener;
 import jp.cleartouch.postcast.R;
 import jp.cleartouch.sqlite.WaveSQLiteHelper;
-
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,9 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Toast;
-
 
 public class MainActivity extends Activity {
 
@@ -71,26 +59,19 @@ public class MainActivity extends Activity {
 		dbHelperObject = new WaveSQLiteHelper(this);
 		SQLiteDatabase db = dbHelperObject.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS " + WaveSQLiteHelper.TABLE_POST);
+		db.execSQL("DROP TABLE IF EXISTS " + WaveSQLiteHelper.TABLE_POST_COUNT);
 		db.execSQL("DROP TABLE IF EXISTS " + WaveSQLiteHelper.TABLE_GET_POST_REQUEST);
+		db.execSQL("DROP TABLE IF EXISTS " + WaveSQLiteHelper.TABLE_GET_POST_COUNT_REQUEST);
 		db.execSQL("DROP TABLE IF EXISTS " + WaveSQLiteHelper.TABLE_CREATE_POST_REQUEST);
 		dbHelperObject.createTablePost(db);
+		dbHelperObject.createTablePostCount(db);
 		dbHelperObject.createTableGetPostRequest(db);
+		dbHelperObject.createTableGetPostCountRequest(db);
 		dbHelperObject.createTableCreatePostRequest(db);
 		db.close();
-		
-		// get view instances
-		RelativeLayout screen = (RelativeLayout) findViewById(R.id.screenRelativeLayout);
-		ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-		TextView elapsedTextView = (TextView) findViewById(R.id.elapsedTextView);
-		TextView durationTextView = (TextView) findViewById(R.id.durationTextView);
-		RelativeLayout control = (RelativeLayout) findViewById(R.id.controlRelativeLayout);
-		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
-		seekBar.setThumbOffset((int) Helpers.convertDpToPixel(8, this));
-		EditText postEditText = (EditText) findViewById(R.id.postEditText);
-		Button postButton = (Button) findViewById(R.id.postButton);
+
 		try{
-			wavePlayer = new WavePlayer(this, screen, control, seekBar, elapsedTextView, 
-					durationTextView, loadingProgressBar, mediaId, postEditText, postButton, userName, userThumbData);
+			wavePlayer = new WavePlayer(this, mediaId, 458, userName, userThumbData);
 			wavePlayer.setDataSource(audioUrl, dataUrl);		
 		} catch (IOException ex) {
 			Log.w(TAG, "Unable to open content: " + audioUrl, ex);
@@ -101,12 +82,10 @@ public class MainActivity extends Activity {
 			return;
 		}
 		
-		
 		// register listeners
 		this.restClient.setOnRestCompleteListener(mRestCompleteListener);
-		
-		//Log.d (TAG, "Dim of Display: " + height + "," + width);
-		
+
+		/*
 		postEditText.setOnTouchListener(new View.OnTouchListener(){
 		    public boolean onTouch(View view, MotionEvent event) {                                                       
 		         Log.d (TAG, "EditText onTouch()");
@@ -116,6 +95,7 @@ public class MainActivity extends Activity {
 		         return false;
 		    }
 		});
+		*/
 		
 		
 	}
@@ -187,28 +167,23 @@ public class MainActivity extends Activity {
 private RestCompleteListener mRestCompleteListener = new RestCompleteListener(){
 
 		@Override
-		public void onCreatePostDataComplete(JSONObject jsonObject) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onCreatePostDataComplete(JSONObject jsonObject) { }
 
 		@Override
-		public void onRESTError() {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onRESTError() { }
 
 		@Override
-		public void onGetError(String url) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onGetError(String url) { }
 
 		@Override
-		public void onGetPostDataComplete(JSONObject jsonObject) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onGetPostDataComplete(JSONObject jsonObject) { }
+
+		@Override
+		public void onGetPostCountComplete(JSONObject jsonObject) { }
+
+		@Override
+		public void onUpdatePostCountComplete(JSONObject jsonObject) { }
+		
     };
     
 }

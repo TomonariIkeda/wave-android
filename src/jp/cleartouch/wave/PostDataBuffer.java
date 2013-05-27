@@ -56,8 +56,8 @@ public class PostDataBuffer extends SparseArray<ArrayList<PostData>>{
 		
 		// retrieve data from SQLite
     	Cursor cursor = db.query(WaveSQLiteHelper.TABLE_POST, 
-    			new String[] { WaveSQLiteHelper.TABLE_POST_COLUMN_DATA, WaveSQLiteHelper.TABLE_POST_COLUMN_Y,
-    						WaveSQLiteHelper.TABLE_POST_COLUMN_THUMB, WaveSQLiteHelper.TABLE_POST_COLUMN_USERNAME},
+    			new String[] { WaveSQLiteHelper.TABLE_POST_COLUMN_TYPE, WaveSQLiteHelper.TABLE_POST_COLUMN_COMMENT, WaveSQLiteHelper.TABLE_POST_COLUMN_Y,
+    						WaveSQLiteHelper.TABLE_POST_COLUMN_THUMB, WaveSQLiteHelper.TABLE_POST_COLUMN_USERNAME, WaveSQLiteHelper.TABLE_POST_COLUMN_CREATED_AT},
 				WaveSQLiteHelper.TABLE_POST_COLUMN_DISPLAY_AT + "=?",
 	            new String[] { String.valueOf(displayAt) }, null, null, null, null);
 	   
@@ -65,12 +65,15 @@ public class PostDataBuffer extends SparseArray<ArrayList<PostData>>{
 	        cursor.moveToFirst();
     	
     	while( ! cursor.isAfterLast() ){
-    		String dataString = cursor.getString(0);
-    	    int yCoord = Integer.parseInt(cursor.getString(1));
-    	    String thumb = cursor.getString(2);
+    		int type = Integer.parseInt(cursor.getString(0));
+    		String commentString = cursor.getString(1);
+    	    int yCoord = Integer.parseInt(cursor.getString(2));
+    	    String thumb = cursor.getString(3);
             byte[] thumbData = Base64.decode(thumb, Base64.DEFAULT);
-        	String userName = cursor.getString(3);
-        	addPostData(new PostData(wavePlayer.getActivity(), yCoord, wavePlayer.getScreenWidth(), displayAt, dataString, thumbData, userName, "Apr12 '13", "10:25AM"));
+        	String userName = cursor.getString(4);
+        	long createdAt = Long.parseLong(cursor.getString(5));
+      	
+        	addPostData(new PostData(wavePlayer.getActivity(), type, yCoord, wavePlayer.getScreenWidth(), displayAt, commentString, thumbData, userName, createdAt));
         	
         	// move cursor
         	cursor.moveToNext();
@@ -124,12 +127,16 @@ public class PostDataBuffer extends SparseArray<ArrayList<PostData>>{
     	public void onPostDataBufferReady(int sec);
     }
     
+	////
+	//
+	//  Class Variables
+	//
+	////
 	private static final String TAG = PostDataBuffer.class.getSimpleName();
 	public static final int INITIAL_BUFFER_SIZE = 20; // Try to retrieve data if the size of buffer gets less than this.
 	
-	private boolean isPushingStarted = false; // true if pushing data has started.
-	
-	private int largestKey = 0; // largest key of PostDataBuffer. key represents elapsed time.
+	private boolean isPushingStarted = false; 	// true if pushing data has started.
+	private int largestKey = 0; 				// largest key of PostDataBuffer. key represents elapsed time.
 	private PostDataBufferListener onPostDataBufferListener;
 	private WaveSQLiteHelper dbHelperObject;
 }
