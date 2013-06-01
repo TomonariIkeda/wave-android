@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import jp.cleartouch.postcast.R;
+import jp.cleartouch.wave.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,7 +30,7 @@ public class PostView extends RelativeLayout{
 	public PostView(WavePlayer wavePlayer) {
         super(wavePlayer.getActivity());
 
-   this.setBackgroundColor(Color.RED);
+   //this.setBackgroundColor(Color.RED);
         this.setVisibility(View.INVISIBLE);
         
         this.context = wavePlayer.getActivity();

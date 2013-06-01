@@ -4,7 +4,7 @@ import java.io.IOException;
 import org.json.JSONObject;
 import jp.cleartouch.libs.rest.RestClient;
 import jp.cleartouch.libs.rest.RestClient.RestCompleteListener;
-import jp.cleartouch.postcast.R;
+import jp.cleartouch.wave.R;
 import jp.cleartouch.sqlite.WaveSQLiteHelper;
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,19 +13,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager.LayoutParams;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private static final String TAG = "CasterPlayer";
+	private static final String TAG = "PlayerActivity";
 	
 	private WavePlayer wavePlayer;
 	private RestClient restClient;

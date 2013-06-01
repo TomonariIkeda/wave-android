@@ -39,7 +39,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
-import jp.cleartouch.postcast.R;
+import jp.cleartouch.wave.R;
 import jp.cleartouch.sqlite.WaveSQLiteHelper;
 
 public class WavePlayer extends MediaPlayer{

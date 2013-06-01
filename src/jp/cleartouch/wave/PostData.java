@@ -1,6 +1,6 @@
 package jp.cleartouch.wave;
 
-import jp.cleartouch.postcast.R;
+import jp.cleartouch.wave.R;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
